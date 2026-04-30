@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fct_cost_by_team_daily
+    description: Daily cost breakdown by team, model and provider
+    columns:
+      - name: event_date
+        tests:
+          - not_null
+      - name: team
+        tests:
+          - not_null
+      - name: total_cost_usd
+        tests:
+          - not_null
+
+  - name: fct_cost_anomalies
+    description: Hourly cost anomaly detection per team and model
+
+  - name: fct_model_efficiency
+    description: Cost and performance efficiency metrics per model

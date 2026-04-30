@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_inference_events
+    description: Cleaned and typed inference events from the proxy layer
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: team
+        tests:
+          - not_null
+      - name: cost_usd
+        tests:
+          - not_null
+      - name: model
+        tests:
+          - not_null
