@@ -57,8 +57,8 @@ raw = (spark.readStream
 
 POSTGRES_URL  = "jdbc:postgresql://pg-dd4835d-kelly-analysis-254.g.aivencloud.com:12538/defaultdb?ssl=true&sslmode=require"
 POSTGRES_PROPS = {
-    "user":     "avnadmin",
-    "password": "AVNS_WGziLM7koYyg0Itz8LG",
+    "user":     "user",
+    "password": "password",
     "driver":   "org.postgresql.Driver",
     "ssl":      "true",
     "sslmode":  "require",
