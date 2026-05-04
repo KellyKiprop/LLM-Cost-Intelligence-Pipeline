@@ -1,0 +1,151 @@
+<svg width="100%" viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>LLM Cost Intelligence Pipeline Architecture</title>
+  <desc>A production-grade real-time data engineering pipeline showing data flow from FastAPI Proxy through Kafka, Spark, PostgreSQL, dbt, Airflow to Grafana.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .label-title { font-size: 14px; font-weight: 600; fill: #1a1a1a; }
+      .label-sub   { font-size: 12px; font-weight: 400; fill: #555550; }
+      .layer-label { font-size: 11px; font-weight: 500; fill: #888780; }
+      .dag-text    { font-size: 11px; font-weight: 400; fill: #666660; }
+      .diagram-title { font-size: 15px; font-weight: 600; fill: #1a1a1a; }
+      .arr { stroke: #b4b2a9; stroke-width: 1.5; fill: none; }
+
+      /* Teal — ingestion */
+      .teal rect  { fill: #E1F5EE; stroke: #0F6E56; }
+      .teal .label-title { fill: #085041; }
+      .teal .label-sub   { fill: #0F6E56; }
+
+      /* Purple — kafka */
+      .purple rect { fill: #EEEDFE; stroke: #534AB7; }
+      .purple .label-title { fill: #26215C; }
+      .purple .label-sub   { fill: #534AB7; }
+
+      /* Coral — spark */
+      .coral rect { fill: #FAECE7; stroke: #993C1D; }
+      .coral .label-title { fill: #4A1B0C; }
+      .coral .label-sub   { fill: #993C1D; }
+
+      /* Blue — postgres */
+      .blue rect { fill: #E6F1FB; stroke: #185FA5; }
+      .blue .label-title { fill: #042C53; }
+      .blue .label-sub   { fill: #185FA5; }
+
+      /* Amber — dbt */
+      .amber rect { fill: #FAEEDA; stroke: #854F0B; }
+      .amber .label-title { fill: #412402; }
+      .amber .label-sub   { fill: #854F0B; }
+
+      /* Green — airflow */
+      .green rect { fill: #EAF3DE; stroke: #3B6D11; }
+      .green .label-title { fill: #173404; }
+      .green .label-sub   { fill: #3B6D11; }
+
+      /* Pink — grafana */
+      .pink rect { fill: #FBEAF0; stroke: #993556; }
+      .pink .label-title { fill: #4B1528; }
+      .pink .label-sub   { fill: #993556; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text class="diagram-title" x="340" y="30" text-anchor="middle">LLM Cost Intelligence Pipeline</text>
+
+  <!-- ── Row 1: Ingestion ── -->
+  <g class="teal">
+    <rect x="40" y="56" width="170" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="125" y="81" text-anchor="middle">FastAPI proxy</text>
+    <text class="label-sub"   x="125" y="101" text-anchor="middle">Intercepts LLM API calls</text>
+  </g>
+  <g class="teal">
+    <rect x="230" y="56" width="170" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="315" y="81" text-anchor="middle">Python simulator</text>
+    <text class="label-sub"   x="315" y="101" text-anchor="middle">Generates synthetic events</text>
+  </g>
+
+  <!-- Layer label -->
+  <rect x="590" y="56" width="78" height="58" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="layer-label" x="629" y="85" text-anchor="middle" dominant-baseline="central">Ingestion</text>
+
+  <!-- Arrows → Kafka -->
+  <line x1="125" y1="114" x2="125" y2="168" class="arr" marker-end="url(#arrow)"/>
+  <line x1="315" y1="114" x2="315" y2="168" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ── Row 2: Kafka ── -->
+  <g class="purple">
+    <rect x="40" y="168" width="360" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="220" y="193" text-anchor="middle">Apache Kafka</text>
+    <text class="label-sub"   x="220" y="213" text-anchor="middle">Topic: llm.inference.raw — real-time event streaming</text>
+  </g>
+
+  <rect x="590" y="168" width="78" height="58" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="layer-label" x="629" y="192" text-anchor="middle" dominant-baseline="central">Message</text>
+  <text class="layer-label" x="629" y="208" text-anchor="middle" dominant-baseline="central">broker</text>
+
+  <!-- Arrow → Spark -->
+  <line x1="220" y1="226" x2="220" y2="280" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ── Row 3: Spark ── -->
+  <g class="coral">
+    <rect x="40" y="280" width="360" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="220" y="305" text-anchor="middle">Apache Spark Structured Streaming</text>
+    <text class="label-sub"   x="220" y="325" text-anchor="middle">Parses events, calculates cost, enriches metadata</text>
+  </g>
+
+  <rect x="590" y="280" width="78" height="58" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="layer-label" x="629" y="300" text-anchor="middle" dominant-baseline="central">Stream</text>
+  <text class="layer-label" x="629" y="316" text-anchor="middle" dominant-baseline="central">processing</text>
+
+  <!-- Arrow → Postgres -->
+  <line x1="220" y1="338" x2="220" y2="392" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ── Row 4: PostgreSQL + dbt ── -->
+  <g class="blue">
+    <rect x="40" y="392" width="168" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="124" y="417" text-anchor="middle">PostgreSQL</text>
+    <text class="label-sub"   x="124" y="437" text-anchor="middle">Aiven Cloud storage</text>
+  </g>
+  <g class="amber">
+    <rect x="232" y="392" width="168" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="316" y="417" text-anchor="middle">dbt</text>
+    <text class="label-sub"   x="316" y="437" text-anchor="middle">Staging + marts, 12 tests</text>
+  </g>
+
+  <!-- Arrow Postgres → dbt -->
+  <line x1="208" y1="421" x2="230" y2="421" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="590" y="392" width="78" height="58" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="layer-label" x="629" y="412" text-anchor="middle" dominant-baseline="central">Storage +</text>
+  <text class="layer-label" x="629" y="428" text-anchor="middle" dominant-baseline="central">transform</text>
+
+  <!-- Arrows → Airflow -->
+  <line x1="124" y1="450" x2="124" y2="505" class="arr" marker-end="url(#arrow)"/>
+  <line x1="316" y1="450" x2="316" y2="505" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ── Row 5: Airflow + Grafana ── -->
+  <g class="green">
+    <rect x="40" y="505" width="168" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="124" y="530" text-anchor="middle">Apache Airflow</text>
+    <text class="label-sub"   x="124" y="550" text-anchor="middle">Hourly DAG orchestration</text>
+  </g>
+  <g class="pink">
+    <rect x="232" y="505" width="168" height="58" rx="8" stroke-width="0.5"/>
+    <text class="label-title" x="316" y="530" text-anchor="middle">Grafana</text>
+    <text class="label-sub"   x="316" y="550" text-anchor="middle">Cost dashboards &amp; alerts</text>
+  </g>
+
+  <!-- Arrow Airflow → Grafana -->
+  <line x1="208" y1="534" x2="230" y2="534" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="590" y="505" width="78" height="58" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="layer-label" x="629" y="525" text-anchor="middle" dominant-baseline="central">Orchestration</text>
+  <text class="layer-label" x="629" y="541" text-anchor="middle" dominant-baseline="central">+ viz</text>
+
+  <!-- ── DAG strip ── -->
+  <rect x="40" y="584" width="530" height="26" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text class="dag-text" x="305" y="601" text-anchor="middle" dominant-baseline="central">DAG: spark → simulator → wait → dbt staging → dbt marts → dbt tests → anomalies → report</text>
+</svg>
