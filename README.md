@@ -4,7 +4,7 @@ A production-grade real-time data engineering pipeline that tracks, processes, a
 
 ## Architecture
 
-FastAPI Proxy → Apache Kafka → Apache Spark → PostgreSQL → dbt → Apache Airflow → Grafana
+![LLM Cost Intelligence Pipeline](docs/architecture.svg)
 
 ## Tech Stack
 
