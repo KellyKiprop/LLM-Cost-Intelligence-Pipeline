@@ -10,11 +10,11 @@ SPARK_JOB       = os.path.expanduser("/home/kelly/Documents/llm-cost-tracker/spa
 SIMULATOR       = os.path.expanduser("/home/kelly/Documents/llm-cost-tracker/proxy/simulator.py")
 SPARK_HOME      = os.path.expanduser("/home/kelly/Documents/llm-cost-tracker")
 
-PG_HOST     = "pg-dd4835d-kelly-analysis-254.g.aivencloud.com"
-PG_PORT     = 12538
-PG_USER     = "avnadmin"
-PG_PASSWORD = "AVNS_WGziLM7koYyg0Itz8LG"
-PG_DB       = "defaultdb"
+PG_HOST     = "your host"
+PG_PORT     = port
+PG_USER     = "user"
+PG_PASSWORD = "password"
+PG_DB       = "your db"
 
 default_args = {
     "owner":            "kelly",
