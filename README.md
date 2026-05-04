@@ -4,7 +4,7 @@ A production-grade real-time data engineering pipeline that tracks, processes, a
 
 ## Architecture
 
-![LLM Cost Intelligence Pipeline](docs/architecture.svg)
+![LLM Cost Intelligence Pipeline](Docs/architecture.svg)
 
 ## Tech Stack
 
